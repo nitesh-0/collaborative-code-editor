@@ -12,7 +12,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Otp = void 0;
 const mongoose_1 = __importDefault(require("mongoose"));
+const mailSender_1 = require("../utility/mailSender");
 const otpSchema = new mongoose_1.default.Schema({
     email: {
         type: String,
@@ -20,7 +22,7 @@ const otpSchema = new mongoose_1.default.Schema({
     },
     otp: {
         type: String,
-        require: true
+        required: true,
     },
     createdAt: {
         type: Date,
@@ -31,7 +33,7 @@ const otpSchema = new mongoose_1.default.Schema({
 function sendVerificationEmail(email, otp) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const mailResponse = yield mailSender(email, "otp verification email", otp);
+            const mailResponse = yield (0, mailSender_1.mailSender)(email, "otp verification email", otp);
             console.log("Successively send mail", mailResponse);
         }
         catch (err) {
@@ -45,3 +47,4 @@ otpSchema.pre("save", function (next) {
         next();
     });
 });
+exports.Otp = mongoose_1.default.model('otp', otpSchema);
