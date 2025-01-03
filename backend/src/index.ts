@@ -1,18 +1,11 @@
-import express from "express"
+import { Request, Response } from "express";
+import {app} from "./socket/stocketio"
 import dbConnection from "./utility/dbConnect"
-import "dotenv/config"
-
-const app = express()
-
-const PORT = process.env.PORT || 8000; 
 
 //connection
 dbConnection();
 
-app.get("/", (req, res)=> {
+app.get("/", (req:Request, res:Response)=> {
     res.send("Hi there")
 })
 
-app.listen(PORT , () => {
-    console.log(`Server started at port: ${PORT}`);
-})
