@@ -1,12 +1,10 @@
-import express, { Request, Response } from "express"
-const router = express.Router()
-
-
+import express from "express";
 import { registerUser, sendOtp, verifyOtp } from "../controller/userController";
 
+const router = express.Router();
 
-router.post("/sendOtp", sendOtp);
-router.post("/verifyOtp",verifyOtp);
-router.post("/signup", registerUser);
+router.post("/sendotp", sendOtp);
+router.post("/verifyotp",verifyOtp);
+router.post("/signup",registerUser);
 
 export default router;
