@@ -1,44 +1,36 @@
 import mongoose from "mongoose";
 
-const userSchemaforEmail = new mongoose.Schema({
-
-    username:{
-        type:String,
-        required:true,
-    },
-    email:{
-        type:String,
-        required:true,
-        unique:true,
-    },
-    password:{
-        type:String,
-        required:true,
-    },
-    confirmPassword:{
-        type:String,
-        required:true,
-    },
-    profilePic:{
-        type:String,
-        default:"UserImage",
-    }
-},{timestamps:true})
-
-const userSchemaforGoogle = new mongoose.Schema({
+const userSchema = new mongoose.Schema({
     username: {
         type: String,
-        required: true
+        required: true,
     },
     email: {
         type: String,
-        required: true
+        required: true,
+        unique: true,
     },
     googleId: {
+        type: String, // Required for Google users
+    },
+    password: {
+        type: String, // Optional for Google users
+        required: function (this: any) {
+            return !this.googleId; // Required if googleId is not present
+        },
+    },
+    confirmPassword: {
+        type: String, // Optional for Google users
+        required: function (this: any) {
+            return !this.googleId; // Required if googleId is not present
+        },
+    },
+    
+    profilePic: {
         type: String,
-        required: true
-    }
-})
-const UserThroughEmail = mongoose.model('user' , userSchemaforEmail);
-const UserThroughGoogle = mongoose.model("googleuser", userSchemaforGoogle)
-export {UserThroughEmail, UserThroughGoogle};
+        default: "UserImage",
+    },
+}, { timestamps: true });
+
+const User = mongoose.model("user", userSchema);
+export default User;

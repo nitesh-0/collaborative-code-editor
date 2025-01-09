@@ -1,13 +1,13 @@
+import "dotenv/config";
 import express from "express";
-import loginRouter from "./routes/login";
 import session from "express-session";
-import passport from "./config/passport";
-import dashboardRouter from "./routes/dashboard"
+import passport from "./middlewares/passport";
 import dbConnection from "./utility/dbConnect"
 import userRoute from "./routes/userRoutes"
 import bodyParser from "body-parser"
 import cookieParser from "cookie-parser"
-import "dotenv/config";
+import { authentication } from "./middlewares/auth";
+import dashboardRoute from "./routes/dashboard";
 
 const app = express();
 
@@ -16,15 +16,16 @@ const PORT = process.env.PORT || 8000;
 //connection
 dbConnection();
 
-app.use(session({ secret: "secret", resave: false, saveUninitialized: true }));
+app.use(session({ secret: "secret", resave: false, saveUninitialized: false }));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(cookieParser())
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
-app.use("/register",userRoute);
-app.use("/auth", loginRouter);
-app.use("/dashboard", dashboardRouter)
+
+
+app.use("/",userRoute);
+app.use("/",dashboardRoute)
 
 app.get("/", (req, res) => {
   res.send("Hello from landing page");

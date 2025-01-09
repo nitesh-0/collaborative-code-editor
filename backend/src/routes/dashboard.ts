@@ -1,19 +1,15 @@
+//testing purpose 
 import express from "express";
+import { authentication } from "../middlewares/auth";
 
 const router = express();
 
-router.get("/", (req, res) => {
-    if (req.isAuthenticated()) {
-        // Access the user info from the session (stored by Passport)
-        const user = req.user as any;
-        console.log(user);
-        res.json({
-          user,
-        });
-      }
-      else {
-        res.redirect("/");
-      }
+router.get("/dashboard", authentication, (req , res) => {
+            const user = req.user as any;
+              console.log(user);
+              res.json({
+              user,
+            });
 })
 
 export default router;
