@@ -1,7 +1,9 @@
 import jwt from "jsonwebtoken"
 import "dotenv/config"
+import { Types } from "mongoose"
 
 interface dataInterface{
+    _id:Types.ObjectId,
     username:string,
     email:string,
     profilePic:string,   

@@ -191,6 +191,7 @@ export const loginUser = async (req: Request, res: Response): Promise<void> => {
         }
 
         const userData = {
+            _id:user?._id,
             username: user?.username,
             email: user?.email,
             profilePic: user?.profilePic

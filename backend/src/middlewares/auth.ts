@@ -10,27 +10,24 @@ export const authentication = async (req:Request, res:Response , next:NextFuncti
         }
 
         const token = req.cookies.token 
-        console.log(token);
         if( !token ){
             res.status(401).json({
                 success:false,
-                message:"token not found",
+                message:"User not authenticated",
             })
             return;
         }
-        console.log("Helllll");
-
+       
         const user = getJwtVerified(token);
 
         if( !user ){
             res.status(401).json({
                 success:false,
-                message:"Invalid token",
+                message:"Invalid user",
             })
             return;
         }
-
-        req.body.user = user
+        req.user = user
         next();
 
     } catch (error) {

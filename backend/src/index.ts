@@ -6,8 +6,8 @@ import dbConnection from "./utility/dbConnect"
 import userRoute from "./routes/userRoutes"
 import bodyParser from "body-parser"
 import cookieParser from "cookie-parser"
-import { authentication } from "./middlewares/auth";
 import dashboardRoute from "./routes/dashboard";
+import projectRoute from "./routes/projectRoutes";
 
 const app = express();
 
@@ -25,7 +25,8 @@ app.use(bodyParser.urlencoded({extended:true}));
 
 
 app.use("/",userRoute);
-app.use("/",dashboardRoute)
+app.use("/",dashboardRoute);
+app.use("/",projectRoute);
 
 app.get("/", (req, res) => {
   res.send("Hello from landing page");
