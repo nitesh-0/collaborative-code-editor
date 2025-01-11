@@ -1,0 +1,12 @@
+# Dockerfile.python
+FROM python:3.9
+
+# Set the working directory
+WORKDIR /app
+
+# Install dependencies
+COPY requirements.txt ./
+RUN pip install -r requirements.txt
+
+# Default command
+CMD ["python", "app.py"]

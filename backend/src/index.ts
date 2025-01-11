@@ -8,6 +8,7 @@ import bodyParser from "body-parser"
 import cookieParser from "cookie-parser"
 import dashboardRoute from "./routes/dashboard";
 import projectRoute from "./routes/projectRoutes";
+import commandRoutes from "./routes/commandRoute"
 
 const app = express();
 
@@ -22,6 +23,8 @@ app.use(passport.session());
 app.use(cookieParser())
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
+app.use('/api', commandRoutes);
+
 
 
 app.use("/",userRoute);
