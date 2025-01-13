@@ -27,8 +27,8 @@ const runCommand = (dockerfilePath: string, command: string, imageName: string, 
     try {
         const dockerfilePath = path.join(__dirname, '../docker/Dockerfile.nodejs');
         console.log('Resolved Dockerfile Path:', dockerfilePath);
-        const command = 'npx create vite@latest my-app';
-        const imageName = 'test-node-image';
+        const command = 'npx create-next-app my-app';
+        const imageName = 'next-image';
         const containerName = 'test-node-container';
 
         const output = await runCommand(dockerfilePath, command, imageName, containerName);
@@ -37,3 +37,5 @@ const runCommand = (dockerfilePath: string, command: string, imageName: string, 
         console.error('Error:', error);
     }
 })();
+
+module.exports = {runCommand}

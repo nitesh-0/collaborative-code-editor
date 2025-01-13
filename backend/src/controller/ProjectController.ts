@@ -24,7 +24,7 @@ export const createNewProject = async (req:Request , res:Response ):Promise<void
             visibility,
             theme,
             tags,
-            socketRoomId:socketRoomId}); 
+            socketRoomId:socketRoomId});
 
         if( !project ){
             res.status(400).json({

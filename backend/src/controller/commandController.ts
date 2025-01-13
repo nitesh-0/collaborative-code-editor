@@ -3,18 +3,22 @@ import runContainer from "../utility/dockerUtils"
 
 
 const executeCommand = async (req: any, res: any) => {
-  const { command, language } = req.body;
+  const { command } = req.body;
 
-  let dockerfilePath = '';
-  if (language === 'node') {
-    dockerfilePath = '/backend/docker/Dockerfile.nodejs';
-  } else if (language === 'python') {
-    dockerfilePath = '/backend/docker/Dockerfile.python';
-  } else if (language === 'java') {
-    dockerfilePath = '/backend/docker/Dockerfile.java';
-  } else {
-    return res.status(400).send({ error: 'Unsupported language' });
+  if (!command) {
+    return res.status(400).json({ error: 'Command is required' });
   }
+
+  let dockerfilePath = 'react-image';
+  // if (language === 'node') {
+  //   dockerfilePath = '/backend/docker/Dockerfile.nodejs';
+  // } else if (language === 'python') {
+  //   dockerfilePath = '/backend/docker/Dockerfile.python';
+  // } else if (language === 'java') {
+  //   dockerfilePath = '/backend/docker/Dockerfile.java';
+  // } else {
+  //   return res.status(400).send({ error: 'Unsupported language' });
+  // }
 
   try {
     const result = await runContainer(command, dockerfilePath);
